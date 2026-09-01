@@ -6,7 +6,7 @@ import { Router } from "express";
 const userRouter = Router();
 
 //get all user
-userRouter.get("/all/", async (_, res) => {
+userRouter.get("/all", async (_, res) => {
   try {
     const users = await prisma.User.findMany();
     res.status(200).json({
