@@ -9,10 +9,32 @@ datasource db {
 
 // Create user table
 model User {
+    Id        Int       @id @default(autoincrement())
+    Profile   Profile? //user can be stay without profile(? means optional)
+    Product   Product[] //user can have multiple products
+    Name      String
+    UserName  String    @unique
+    Password  String
+    CreatedAt DateTime  @default(now())
+    UpdatedAt DateTime  @updatedAt
+}
+
+// User profile table (one to one relationship with user table)
+model Profile {
+    Id             Int      @id @default(autoincrement())
+    Img            String
+    AccountDetails User     @relation(fields: [UserId], references: [Id]) //relation to User
+    UserId         Int      @unique
+    CreatedAt      DateTime @default(now())
+    UpdatedAt      DateTime @updatedAt
+}
+
+// Product table (one to many relationship with user table)
+model Product {
     Id        Int      @id @default(autoincrement())
     Name      String
-    UserName  String   @unique
-    Password  String
+    User      User     @relation(fields: [UserId], references: [Id]) //relation to User
+    UserId    Int
     CreatedAt DateTime @default(now())
     UpdatedAt DateTime @updatedAt
 }
