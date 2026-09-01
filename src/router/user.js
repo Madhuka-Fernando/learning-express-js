@@ -1,5 +1,6 @@
 //import userInfo from "../data/userInfo";
 import { userInfo } from "../data/userInfo.js";
+import prisma from "../db/db.js";
 
 //router the user API endpoints
 import { Router } from "express";
@@ -34,6 +35,28 @@ userRouter.get("/id", (req, res) => {
   } else {
     res.status(400).json({
       msg: "Invalid user ID",
+    });
+  }
+});
+
+// create new user
+userRouter.post("/create", async (req, res) => {
+  const user = req.body;
+  console.log(user);
+  try {
+    //send data to DB
+    const newUser = await prisma.User.create({
+      data: user,
+    });
+    res.status(201).json({
+      msg: "User created successfully",
+      data: newUser,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Error creating user",
+      error: error.message,
     });
   }
 });

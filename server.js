@@ -26,6 +26,9 @@ app.get("/test1", (req, res) => {
   res.json({ message: "Hello World JSON" });
 });
 
+//Set the json middleware
+app.use(express.json());
+
 //Routers
 app.use("/api/v1/user", UserRouter);
 app.use("/api/v1/product", ProductRouter);
