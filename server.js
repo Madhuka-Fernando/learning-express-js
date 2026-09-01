@@ -10,8 +10,7 @@
 }
 
 import express from "express"; //import the express(like c# using system)
-import UserRouter from "./src/router/user.js"; //import routers
-import ProductRouter from "./src/router/product.js"; //import routers
+import rootRouter from "./src/router/index.js"; //import routers
 const app = express(); //create an instance of express (Execute express)
 
 //get request from user and send response(HTML)
@@ -30,8 +29,7 @@ app.get("/test1", (req, res) => {
 app.use(express.json());
 
 //Routers
-app.use("/api/v1/user", UserRouter);
-app.use("/api/v1/product", ProductRouter);
+app.use("/api", rootRouter);
 
 //set server listening port
 app.listen(5001, () => {

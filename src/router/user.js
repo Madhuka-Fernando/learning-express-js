@@ -1,5 +1,4 @@
 //import userInfo from "../data/userInfo";
-import { userInfo } from "../data/userInfo.js";
 import prisma from "../db/db.js";
 
 //router the user API endpoints
@@ -71,6 +70,52 @@ userRouter.post("/create", async (req, res) => {
     console.log(error);
     res.status(500).json({
       msg: "Error creating user",
+      error: error.message,
+    });
+  }
+});
+
+//update user data
+userRouter.put("/update", async (req, res) => {
+  const { id } = req.query;
+  const userData = req.body;
+  try {
+    const updatedUser = await prisma.User.update({
+      where: {
+        Id: parseInt(id),
+      },
+      data: userData,
+    });
+    res.status(200).json({
+      msg: "User updated successfully",
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Error updating user",
+      error: error.message,
+    });
+  }
+});
+
+//delete user
+userRouter.delete("/delete", async (req, res) => {
+  const { id } = req.query;
+  try {
+    const deletedUser = await prisma.User.delete({
+      where: {
+        Id: parseInt(id),
+      },
+    });
+    res.status(200).json({
+      msg: "User deleted successfully",
+      data: null,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Error deleting user",
       error: error.message,
     });
   }
