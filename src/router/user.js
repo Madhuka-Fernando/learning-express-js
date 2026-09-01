@@ -7,21 +7,34 @@ import { Router } from "express";
 const userRouter = Router();
 
 //get all user
-userRouter.get("/all/", (_, res) => {
-  res.status(200).json({
-    msg: "All user data",
-    data: userInfo,
-  });
+userRouter.get("/all/", async (_, res) => {
+  try {
+    const users = await prisma.User.findMany();
+    res.status(200).json({
+      msg: "All user data",
+      data: users,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Error fetching user data",
+      error: error.message,
+    });
+  }
 });
 
 //get user by id
 
 // /id/:id (that is the way to set path when method is req.params)
-userRouter.get("/id", (req, res) => {
+userRouter.get("/id", async (req, res) => {
   //Get inputs(/api.../id?id=1)
   const { id } = req.query;
-  if (id != undefined) {
-    const user = userInfo.find((u) => u.id === parseInt(id));
+  try {
+    const user = await prisma.User.findUnique({
+      where: {
+        Id: parseInt(id),
+      },
+    });
     if (user) {
       res.status(200).json({
         msg: "User data",
@@ -32,9 +45,11 @@ userRouter.get("/id", (req, res) => {
         msg: "User not found",
       });
     }
-  } else {
-    res.status(400).json({
-      msg: "Invalid user ID",
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Error fetching user data",
+      error: error.message,
     });
   }
 });
