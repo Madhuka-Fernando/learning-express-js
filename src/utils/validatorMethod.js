@@ -9,3 +9,28 @@ export const validateRequest = () => [
     .withMessage("Name must not be empty"),
   body("age").isInt().withMessage("Age must be a number"),
 ];
+
+//Create Registration validate middleware
+export const registerValidate = [
+  body("UserName").notEmpty().withMessage("UserName must not be empty"),
+  body("Name").notEmpty().withMessage("Name must not be empty"),
+  body("Password")
+    .isStrongPassword({
+      minLength: 8,
+      minNumbers: 2,
+      minSymbols: 1,
+      minUppercase: 1,
+    })
+    .withMessage(
+      "Password must be strong and contain at least 8 characters, 2 numbers, 1 symbol, and 1 uppercase letter.",
+    ),
+];
+
+//Create Login Validate
+export const loginValidate = (...keys) => {
+  const validations = [];
+  keys.forEach((k) => {
+    validations.push(body(k).notEmpty().withMessage(`${k} must not be empty`));
+  });
+  return validations;
+};

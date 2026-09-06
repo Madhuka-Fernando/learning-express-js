@@ -1,5 +1,9 @@
 //import userInfo from "../data/userInfo";
+import { matchedData, validationResult } from "express-validator";
 import prisma from "../db/db.js";
+
+import { registerValidate, loginValidate } from "../utils/validatorMethod.js";
+import { registerError } from "../utils/error-creater.js";
 
 //router the user API endpoints
 import { Router } from "express";
@@ -120,6 +124,94 @@ userRouter.delete("/delete", async (req, res) => {
     });
   }
 });
+//user Registration
+userRouter.post("/register", registerValidate, async (req, res) => {
+  const errors = validationResult(req);
+  const err = registerError(errors.array());
+  // Check for validation errors and display them
+  if (errors.array().length) {
+    return res.status(400).json({
+      msg: "Validation errors",
+      error: err,
+      data: null,
+    });
+  }
+  // assign matched data to a variable
+  const data = matchedData(req);
+  try {
+    // pass the matched data to the database
+    await prisma.user.create({ data });
+    return res.status(201).json({
+      msg: "User created successfully",
+      data: null,
+    });
+  } catch (error) {
+    // Handle database errors
+    console.log(error);
+    if (error.code === "P2002") {
+      res.status(500).json({
+        msg: "Error",
+        error: "User Name already exists",
+        data: null,
+      });
+    }
+    res.status(500).json({
+      msg: "Error",
+      error: "Database Error",
+      data: null,
+    });
+  }
+});
+
+//User Login
+userRouter.post(
+  "/login",
+  loginValidate("UserName", "Password"),
+  async (req, res) => {
+    const errors = validationResult(req);
+    const err = registerError(errors.array());
+
+    if (errors.array().length) {
+      return res.status(400).json({
+        msg: "Validation errors",
+        error: err,
+        data: null,
+      });
+    }
+
+    const data = matchedData(req);
+
+    try {
+      const user = await prisma.user.findUnique({
+        where: { UserName: data.UserName },
+      });
+      if (user !== null) {
+        if (user.Password === data.Password) {
+          return res.status(200).json({
+            msg: "Success",
+            data: user,
+          });
+        }
+        return res.status(400).json({
+          msg: "Errors",
+          error: "Password is incorrect",
+          data: null,
+        });
+      }
+      return res.status(404).json({
+        msg: "Errors",
+        error: "User not found",
+        data: null,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        msg: "Error",
+        error: "DataBase Error",
+        data: null,
+      });
+    }
+  },
+);
 
 //export the user router
 export default userRouter;
