@@ -5,8 +5,11 @@ import prisma from "../db/db.js";
 import { registerValidate, loginValidate } from "../utils/validatorMethod.js";
 import { registerError } from "../utils/error-creater.js";
 
+import { tokenGen, tokenDecode } from "../utils/jwt.js";
+
 //router the user API endpoints
 import { Router } from "express";
+import { checkAuth } from "../utils/authMiddleware.js";
 const userRouter = Router();
 
 //get all user
@@ -187,9 +190,15 @@ userRouter.post(
       });
       if (user !== null) {
         if (user.Password === data.Password) {
+          // Generate JWT token
+          const payload = {
+            UserName: user.UserName,
+          };
+          const token = tokenGen(payload);
           return res.status(200).json({
             msg: "Success",
             data: user,
+            token,
           });
         }
         return res.status(400).json({
@@ -212,6 +221,24 @@ userRouter.post(
     }
   },
 );
+
+// Check token decoding
+userRouter.post("/check-token", async (req, res) => {
+  const token = req.body.token; // assuming token is sent in the body
+  console.log(tokenDecode(token));
+  return res.status(200).json({
+    msg: "Success",
+    data: tokenDecode(token),
+  });
+});
+
+// Verify JWT token using middleware
+userRouter.post("/verify-token", checkAuth, (req, res) => {
+  return res.status(200).json({
+    msg: "Success",
+    data: "Token Verified",
+  });
+});
 
 //export the user router
 export default userRouter;
