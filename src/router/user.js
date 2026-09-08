@@ -2,8 +2,8 @@
 import { matchedData, validationResult } from "express-validator";
 import prisma from "../db/db.js";
 
-import { registerValidate, loginValidate } from "../utils/validatorMethod.js";
-import { registerError } from "../utils/error-creater.js";
+import { registerValidate, commonValidate } from "../utils/validatorMethod.js";
+import { resError } from "../utils/error-creater.js";
 
 import { tokenGen, tokenDecode } from "../utils/jwt.js";
 
@@ -130,7 +130,7 @@ userRouter.delete("/delete", async (req, res) => {
 //user Registration
 userRouter.post("/register", registerValidate, async (req, res) => {
   const errors = validationResult(req);
-  const err = registerError(errors.array());
+  const err = resError(errors.array());
   // Check for validation errors and display them
   if (errors.array().length) {
     return res.status(400).json({
@@ -169,10 +169,10 @@ userRouter.post("/register", registerValidate, async (req, res) => {
 //User Login
 userRouter.post(
   "/login",
-  loginValidate("UserName", "Password"),
+  commonValidate("UserName", "Password"),
   async (req, res) => {
     const errors = validationResult(req);
-    const err = registerError(errors.array());
+    const err = resError(errors.array());
 
     if (errors.array().length) {
       return res.status(400).json({

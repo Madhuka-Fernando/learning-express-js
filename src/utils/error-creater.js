@@ -1,4 +1,4 @@
-export const registerError = (error = []) => {
+export const resError = (error = []) => {
   // Create an object to hold error messages
   const errorMsg = {};
 

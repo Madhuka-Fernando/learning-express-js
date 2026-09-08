@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, query } from "express-validator";
 
 // Validation middleware for incoming requests
 export const validateRequest = () => [
@@ -26,11 +26,20 @@ export const registerValidate = [
     ),
 ];
 
-//Create Login Validate
-export const loginValidate = (...keys) => {
+//Create Common Validate
+export const commonValidate = (...keys) => {
   const validations = [];
   keys.forEach((k) => {
     validations.push(body(k).notEmpty().withMessage(`${k} must not be empty`));
+  });
+  return validations;
+};
+
+//Create Common Query Validate
+export const commonQueryValidate = (...keys) => {
+  const validations = [];
+  keys.forEach((k) => {
+    validations.push(query(k).notEmpty().withMessage(`${k} must not be empty`));
   });
   return validations;
 };
