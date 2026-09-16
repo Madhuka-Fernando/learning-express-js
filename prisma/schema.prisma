@@ -31,10 +31,19 @@ model Profile {
 
 // Product table (one to many relationship with user table)
 model Product {
-    Id        Int      @id @default(autoincrement())
+    Id              Int        @id @default(autoincrement())
+    Name            String
+    User            User       @relation(fields: [UserId], references: [Id]) //relation to User
+    UserId          Int
+    ProductCategory Category[]
+    CreatedAt       DateTime   @default(now())
+    UpdatedAt       DateTime   @updatedAt
+}
+
+model Category {
+    Id        Int       @id @default(autoincrement())
     Name      String
-    User      User     @relation(fields: [UserId], references: [Id]) //relation to User
-    UserId    Int
-    CreatedAt DateTime @default(now())
-    UpdatedAt DateTime @updatedAt
+    Products  Product[]
+    CreatedAt DateTime  @default(now())
+    UpdatedAt DateTime  @updatedAt
 }

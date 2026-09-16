@@ -60,6 +60,81 @@ userRouter.get("/id", async (req, res) => {
   }
 });
 
+// Get user profile by UserId
+userRouter.get("/profile/:UserId", async (req, res) => {
+  const { UserId } = req.params;
+  try {
+    const user = await prisma.User.findUnique({
+      select: {
+        Profile: {
+          select: {
+            Img: true,
+          },
+        },
+      },
+      where: {
+        Id: parseInt(UserId),
+      },
+    });
+    if (user) {
+      res.status(200).json({
+        msg: "User data",
+        data: user,
+      });
+    } else {
+      res.status(404).json({
+        msg: "User not found",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Error fetching user data",
+      error: error.message,
+    });
+  }
+});
+
+// Get user product by UserId
+userRouter.get("/product/:UserId", async (req, res) => {
+  const { UserId } = req.params;
+  try {
+    const user = await prisma.User.findUnique({
+      select: {
+        Product: {
+          select: {
+            Name: true,
+            ProductCategory: {
+              select: {
+                Name: true,
+              },
+            },
+          },
+        },
+      },
+      where: {
+        Id: parseInt(UserId),
+      },
+    });
+    if (user) {
+      res.status(200).json({
+        msg: "User data",
+        data: user,
+      });
+    } else {
+      res.status(404).json({
+        msg: "User not found",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Error fetching user data",
+      error: error.message,
+    });
+  }
+});
+
 // create new user
 userRouter.post("/create", async (req, res) => {
   const user = req.body;

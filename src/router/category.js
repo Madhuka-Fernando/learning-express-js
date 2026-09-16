@@ -8,13 +8,13 @@ import { matchedData, param, validationResult } from "express-validator";
 import { resError } from "../utils/error-creater.js";
 import prisma from "../db/db.js";
 
-const productRouter = Router();
+const categoryRouter = Router();
 
-// get all product
-productRouter.get("/all", async (_, res) => {
+// get all category
+categoryRouter.get("/all", async (_, res) => {
   try {
-    const products = await prisma.product.findMany({
-      // get only Name from product table
+    const category = await prisma.category.findMany({
+      // get only Name from category table
       select: {
         Name: true,
         // get UserName from User table
@@ -26,9 +26,9 @@ productRouter.get("/all", async (_, res) => {
       },
     });
     return res.status(200).json({
-      msg: "Products retrieved successfully",
+      msg: "category retrieved successfully",
       error: null,
-      data: products,
+      data: category,
     });
   } catch (error) {
     console.log(error);
@@ -40,8 +40,8 @@ productRouter.get("/all", async (_, res) => {
   }
 });
 
-// get all product by user
-productRouter.get(
+// get all category by user
+categoryRouter.get(
   "/all-by-user",
   commonQueryValidate("UserId"),
   async (req, res) => {
@@ -57,7 +57,7 @@ productRouter.get(
     }
     const data = matchedData(req);
     try {
-      const products = await prisma.product.findMany({
+      const category = await prisma.category.findMany({
         // get only Name from product table
         select: {
           Name: true,
@@ -74,11 +74,11 @@ productRouter.get(
       });
       return res.status(200).json({
         msg:
-          products.length > 0
-            ? `${products[0]?.User?.UserName}'s Products retrieved successfully`
-            : "No Products found",
+          category.length > 0
+            ? `${category[0]?.User?.UserName}'s category retrieved successfully`
+            : "No category found",
         error: null,
-        data: products,
+        data: category,
       });
     } catch (error) {
       console.log(error);
@@ -91,8 +91,8 @@ productRouter.get(
   },
 );
 
-// get product by id
-productRouter.get("/:id", commonPathValidate("id"), async (req, res) => {
+// get category by id
+categoryRouter.get("/:id", commonPathValidate("id"), async (req, res) => {
   const errors = validationResult(req);
   const err = resError(errors.array());
 
@@ -134,10 +134,10 @@ productRouter.get("/:id", commonPathValidate("id"), async (req, res) => {
   }
 });
 
-// update product by user id
-productRouter.put(
+// update category by user id
+categoryRouter.put(
   "/update/:Id",
-  commonValidate("Name"),
+  commonValidate("Name", "productIds"),
   commonPathValidate("Id"),
   async (req, res) => {
     const errors = validationResult(req);
@@ -153,18 +153,24 @@ productRouter.put(
     const data = matchedData(req);
 
     try {
-      const product = await prisma.product.update({
+      const category = await prisma.category.update({
         data: {
           Name: data.Name,
+          // connect products
+          Products: {
+            connect: `${data.productIds}`
+              .split(",")
+              .map((d) => ({ Id: parseInt(d) })),
+          },
         },
         where: {
           Id: parseInt(data.Id),
         },
       });
       return res.status(200).json({
-        msg: "Product updated successfully",
+        msg: "Category updated successfully",
         error: null,
-        data: product,
+        data: category,
       });
     } catch (error) {
       console.log(error);
@@ -178,10 +184,10 @@ productRouter.put(
   },
 );
 
-// create new product
-productRouter.post(
+// create new category
+categoryRouter.post(
   "/create",
-  commonValidate("UserId", "Name"),
+  commonValidate("Name", "productIds"),
   async (req, res) => {
     const errors = validationResult(req);
     const err = resError(errors.array());
@@ -196,16 +202,21 @@ productRouter.post(
     const data = matchedData(req);
 
     try {
-      const product = await prisma.product.create({
+      const category = await prisma.category.create({
         data: {
-          UserId: parseInt(data.UserId),
           Name: data.Name,
+          // connect products
+          Products: {
+            connect: `${data.productIds}`
+              .split(",")
+              .map((d) => ({ Id: parseInt(d) })),
+          },
         },
       });
       return res.status(201).json({
-        msg: "Product created successfully",
+        msg: "Category created successfully",
         error: null,
-        data: product,
+        data: category,
       });
     } catch (error) {
       console.log(error);
@@ -219,8 +230,8 @@ productRouter.post(
   },
 );
 
-// delete product
-productRouter.delete(
+// delete category
+categoryRouter.delete(
   "/delete/:Id",
   commonPathValidate("Id"),
   async (req, res) => {
@@ -237,7 +248,7 @@ productRouter.delete(
     const data = matchedData(req);
 
     try {
-      const product = await prisma.product.delete({
+      const category = await prisma.category.delete({
         where: {
           Id: parseInt(data.Id),
         },
@@ -246,9 +257,9 @@ productRouter.delete(
         },
       });
       return res.status(200).json({
-        msg: "product deleted successfully",
+        msg: "category deleted successfully",
         error: null,
-        data: `${product.Name} has been deleted`,
+        data: `${category.Name} has been deleted`,
       });
     } catch (error) {
       console.log(error);
@@ -262,4 +273,4 @@ productRouter.delete(
   },
 );
 
-export default productRouter;
+export default categoryRouter;
