@@ -10,8 +10,8 @@ This repo is a personal learning log, but anyone starting with Express.js is wel
 
 As my learning has progressed to different databases, this repository is divided into specific project folders:
 
-- **`01-postgres-prisma`**: Contains my initial learning files, focusing on building an Express.js REST API using **PostgreSQL** and the **Prisma ORM**. Includes CRUD operations, 1-M/M-N database relationships, and session/cookie management.
-- **`02-Express-MongoDB`**: My current learning phase, focusing on integrating Express.js with a **MongoDB** database.
+- **`01-express-postgres`**: Contains my initial learning files, focusing on building an Express.js REST API using **PostgreSQL** and the **Prisma ORM**. Includes CRUD operations, 1-M/M-N database relationships, and session/cookie management.
+- **`02-express-mongodb`**: My current learning phase, focusing on integrating Express.js with a **MongoDB** database.
 
 ## 🛠️ How to Use
 
@@ -24,8 +24,8 @@ If you want to run these practice files on your machine:
    `cd learning-express-js`
 
 3. **Navigate into the specific project folder you want to run:**
-   `cd 01-postgres-prisma`
-   _(or `cd 02-Express-MongoDB`)_
+   `cd 01-express-postgres`
+   _(or `cd 02-express-mongodb`)_
 
 4. Install dependencies for that specific project:
    `npm install`
