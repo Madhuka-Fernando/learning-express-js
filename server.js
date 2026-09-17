@@ -8,9 +8,15 @@
             }
     */
 }
+//npm i cookie-parser
+//npm i express-session
 
 import express from "express"; //import the express(like c# using system)
+import cookieParser from "cookie-parser"; //import cookie-parser
+import expressSession from "express-session"; // import express-session
 import rootRouter from "./src/router/index.js"; //import routers
+import { PrismaSessionStore } from "@quixo3/prisma-session-store";
+import prisma from "./src/db/db.js";
 const app = express(); //create an instance of express (Execute express)
 
 //get request from user and send response(HTML)
@@ -27,6 +33,29 @@ app.get("/test1", (req, res) => {
 
 //Set the json middleware
 app.use(express.json());
+
+// Cookie Parser
+app.use(cookieParser("myKey"));
+
+// Express Session
+app.use(
+  expressSession({
+    secret: "myKey",
+    resave: false, // if session is expired auto change the session ID (After every 30 sec)
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 1000 * 30,
+      httpOnly: true,
+      signed: true,
+    },
+    // set up prisma session store
+    store: new PrismaSessionStore(prisma, {
+      checkPeriod: 2 * 60 * 1000, //ms
+      dbRecordIdIsSessionId: true,
+      dbRecordIdFunction: undefined,
+    }),
+  }),
+);
 
 //Routers
 app.use("/api", rootRouter);

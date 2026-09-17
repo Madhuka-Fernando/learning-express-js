@@ -1,7 +1,10 @@
 {
   "dependencies": {
     "@prisma/client": "^5.22.0",
+    "@quixo3/prisma-session-store": "^3.1.21",
+    "cookie-parser": "^1.4.7",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "express-validator": "^7.3.2",
     "jsonwebtoken": "^9.0.3"
   },
