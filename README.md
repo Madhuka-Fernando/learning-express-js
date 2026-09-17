@@ -6,6 +6,13 @@ Welcome to my Express.js learning repository! I created this space to keep track
 
 This repo is a personal learning log, but anyone starting with Express.js is welcome to follow along and use it as a reference.
 
+## 📂 Repository Structure
+
+As my learning has progressed to different databases, this repository is divided into specific project folders:
+
+- **`01-postgres-prisma`**: Contains my initial learning files, focusing on building an Express.js REST API using **PostgreSQL** and the **Prisma ORM**. Includes CRUD operations, 1-M/M-N database relationships, and session/cookie management.
+- **`02-Express-MongoDB`**: My current learning phase, focusing on integrating Express.js with a **MongoDB** database.
+
 ## 🛠️ How to Use
 
 If you want to run these practice files on your machine:
@@ -13,13 +20,17 @@ If you want to run these practice files on your machine:
 1. Clone this repository:
    `git clone https://github.com/Madhuka-Fernando/learning-express-js.git`
 
-2. Navigate to the project folder:
+2. Navigate to the main project folder:
    `cd learning-express-js`
 
-3. Install dependencies:
+3. **Navigate into the specific project folder you want to run:**
+   `cd 01-postgres-prisma`
+   _(or `cd 02-Express-MongoDB`)_
+
+4. Install dependencies for that specific project:
    `npm install`
 
-4. Run the practice files:
+5. Run the practice files:
    `node server.js`
 
 ## 🎓 Credits & Resources
