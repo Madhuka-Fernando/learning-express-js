@@ -1,5 +1,6 @@
 import { Router } from "express";
 import User from "../model/user.mjs";
+import Profile from "../model/profile.mjs";
 
 const userRouter = Router();
 
@@ -31,6 +32,38 @@ userRouter.get("/:id", async (c, w) => {
   const id = c.params.id;
   try {
     const user = await User.findOne({ _id: id });
+    return w.status(200).send(user);
+  } catch (error) {
+    console.log(error);
+    return w.status(500).send("Internal server error");
+  }
+});
+
+//update user profile
+userRouter.put("/profile/:userId", async (c, w) => {
+  const { img } = c.body;
+  try {
+    const updatedUser = await User.findById(c.params.userId); // get user by ID
+    const profile = await Profile.create({ user: updatedUser._id, img }); // create new profile linked to user
+    updatedUser.profile = profile._id; // assign profile ID to user
+    await updatedUser.save(); // save updated user to DB
+
+    console.log(profile);
+    console.log(updatedUser);
+
+    w.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    return w.status(500).send("Internal server error");
+  }
+});
+
+// get profile by id
+userRouter.get("/profile/:userId", async (c, w) => {
+  try {
+    const user = await User.findById(c.params.userId)
+      .populate("profile", "img createdAt") // Show only img and created at in profile section
+      .select(["profile", "userName", "name"]); // Show only selected fields
     return w.status(200).send(user);
   } catch (error) {
     console.log(error);

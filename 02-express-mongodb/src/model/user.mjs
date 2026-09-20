@@ -1,7 +1,7 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 
 //Creating user Schema
-const userSchema = Schema(
+const userSchema = new Schema(
   {
     name: String,
     userName: {
@@ -11,6 +11,12 @@ const userSchema = Schema(
     },
     password: String,
     email: String,
+    // create connection with Profile table
+    profile: {
+      type: Types.ObjectId,
+      ref: "Profile",
+      unique: true,
+    },
   },
   {
     timestamps: true,
