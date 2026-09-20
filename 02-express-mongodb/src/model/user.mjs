@@ -17,6 +17,12 @@ const userSchema = new Schema(
       ref: "Profile",
       unique: true,
     },
+    products: [
+      {
+        type: Types.ObjectId,
+        ref: "Product",
+      },
+    ],
   },
   {
     timestamps: true,
