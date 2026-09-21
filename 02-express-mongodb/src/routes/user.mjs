@@ -71,4 +71,30 @@ userRouter.get("/profile/:userId", async (c, w) => {
   }
 });
 
+//delete profile using profile id
+userRouter.delete("/profile/:profileId", async (c, w) => {
+  const profileId = c.params.profileId;
+  try {
+    // await User.updateOne({ profile: profileId }, { profile: null });
+    await Profile.deleteOne({ _id: profileId });
+
+    return w.status(200).send("Profile deleted successfully ...");
+  } catch (error) {
+    console.log(error);
+    return w.status(500).send("Internal server error");
+  }
+});
+
+//delete user using user id
+userRouter.delete("/:id", async (c, w) => {
+  const id = c.params.id;
+  try {
+    await User.deleteOne({ _id: id });
+    return w.status(200).send("User deleted successfully ...");
+  } catch (error) {
+    console.log(error);
+    return w.status(500).send("Internal server error");
+  }
+});
+
 export default userRouter;
