@@ -8,30 +8,40 @@ This repo is a personal learning log, but anyone starting with Express.js is wel
 
 ## 📂 Repository Structure
 
-As my learning has progressed to different databases, this repository is divided into specific project folders:
+As my learning has progressed to different databases and language features, this repository is divided into specific project folders:
 
 - **`01-express-postgres`**: Contains my initial learning files, focusing on building an Express.js REST API using **PostgreSQL** and the **Prisma ORM**. Includes CRUD operations, 1-M/M-N database relationships, and session/cookie management.
-- **`02-express-mongodb`**: My current learning phase, focusing on integrating Express.js with a **MongoDB** database.
+- **`02-express-mongodb`**: Focuses on integrating Express.js with a **MongoDB** database, handling Mongoose schemas, queries, and middleware.
+- **`03-express-typescript`**: Learning and migrating Express.js to **TypeScript**, emphasizing type safety, interfaces, strict request/response typing, and modern Node.js application architecture.
 
 ## 🛠️ How to Use
 
 If you want to run these practice files on your machine:
 
 1. Clone this repository:
-   `git clone https://github.com/Madhuka-Fernando/learning-express-js.git`
+   git clone https://github.com/Madhuka-Fernando/learning-express-js.git
 
 2. Navigate to the main project folder:
-   `cd learning-express-js`
+   cd learning-express-js
 
-3. **Navigate into the specific project folder you want to run:**
-   `cd 01-express-postgres`
-   _(or `cd 02-express-mongodb`)_
+3. Navigate into the specific project folder you want to run:
+   cd 01-express-postgres
+
+   # or
+
+   cd 02-express-mongodb
+
+   # or
+
+   cd 03-express-typescript
 
 4. Install dependencies for that specific project:
-   `npm install`
+   npm install
 
 5. Run the practice files:
-   `node server.js`
+   npm run dev
+   # or
+   node server.js
 
 ## 🎓 Credits & Resources
 
