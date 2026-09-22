@@ -1,9 +1,45 @@
-node_modules/
-dist/
+# Dependencies
+**/node_modules/
+package-lock.json.log
+
+# Build Outputs
+**/dist/
+**/build/
+**/out/
+*.tsbuildinfo
+
+# Environment variables
 .env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS specific files
 .DS_Store
+Thumbs.db
+
+# IDE & Editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# AI Tools & Agents
 .agents/
 .claude/
 .cursor/
 .devin/
-.idea/
+
+# Testing & Coverage
+coverage/
+.nyc_output/
