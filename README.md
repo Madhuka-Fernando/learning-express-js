@@ -13,35 +13,61 @@ As my learning has progressed to different databases and language features, this
 - **`01-express-postgres`**: Contains my initial learning files, focusing on building an Express.js REST API using **PostgreSQL** and the **Prisma ORM**. Includes CRUD operations, 1-M/M-N database relationships, and session/cookie management.
 - **`02-express-mongodb`**: Focuses on integrating Express.js with a **MongoDB** database, handling Mongoose schemas, queries, and middleware.
 - **`03-express-typescript`**: Learning and migrating Express.js to **TypeScript**, emphasizing type safety, interfaces, strict request/response typing, and modern Node.js application architecture.
+- **`04-express-socket-server`**: Backend Node.js and Express server built for real-time communication. Implements **Socket.io** to handle user registration and private messaging logic.
+- **`04-express-socket-client`**: Frontend application built with **React**, TypeScript, and Vite. Connects to the Node.js Socket.io server to demonstrate a real-time chat interface.
 
 ## 🛠️ How to Use
 
 If you want to run these practice files on your machine:
 
 1. Clone this repository:
-   git clone https://github.com/Madhuka-Fernando/learning-express-js.git
+   ```bash
+   git clone [https://github.com/Madhuka-Fernando/learning-express-js.git](https://github.com/Madhuka-Fernando/learning-express-js.git)
+   ```
 
 2. Navigate to the main project folder:
+   ```bash
    cd learning-express-js
+   ```
 
 3. Navigate into the specific project folder you want to run:
+   ```bash
    cd 01-express-postgres
-
    # or
-
    cd 02-express-mongodb
-
    # or
-
    cd 03-express-typescript
+   ```
 
 4. Install dependencies for that specific project:
+   ```bash
    npm install
+   ```
 
 5. Run the practice files:
+   ```bash
    npm run dev
    # or
    node server.js
+   ```
+
+### 💬 Running the Socket.io Chat App
+
+To run the real-time chat application, you need to start both the server and the client concurrently in two separate terminal windows:
+
+**Terminal 1 (Backend Server):**
+```bash
+cd 04-express-socket-server
+npm install
+npm run dev
+```
+
+**Terminal 2 (Frontend Client):**
+```bash
+cd 04-express-socket-client
+npm install
+npm run dev
+```
 
 ## 🎓 Credits & Resources
 
