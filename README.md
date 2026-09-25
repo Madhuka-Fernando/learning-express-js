@@ -15,6 +15,7 @@ As my learning has progressed to different databases and language features, this
 - **`03-express-typescript`**: Learning and migrating Express.js to **TypeScript**, emphasizing type safety, interfaces, strict request/response typing, and modern Node.js application architecture.
 - **`04-express-socket-server`**: Backend Node.js and Express server built for real-time communication. Implements **Socket.io** to handle user registration and private messaging logic.
 - **`04-express-socket-client`**: Frontend application built with **React**, TypeScript, and Vite. Connects to the Node.js Socket.io server to demonstrate a real-time chat interface.
+- **`05-express-file-upload`**: Explores file handling and storage in Express.js. Implements file uploads using **Multer** and integrates with **AWS S3** (`@aws-sdk/client-s3` & `multer-s3`) for secure cloud storage, alongside local disk storage configurations.
 
 ## 🛠️ How to Use
 
@@ -36,7 +37,7 @@ If you want to run these practice files on your machine:
    # or
    cd 02-express-mongodb
    # or
-   cd 03-express-typescript
+   cd 05-express-file-upload
    ```
 
 4. Install dependencies for that specific project:
@@ -50,6 +51,8 @@ If you want to run these practice files on your machine:
    # or
    node server.js
    ```
+
+> **Note for `05-express-file-upload`**: To test the AWS S3 upload functionality, you must create a `.env` file in the root of that specific project folder and provide your AWS credentials (`AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`).
 
 ### 💬 Running the Socket.io Chat App
 
