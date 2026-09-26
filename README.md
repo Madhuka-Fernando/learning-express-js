@@ -16,6 +16,8 @@ As my learning has progressed to different databases and language features, this
 - **`04-express-socket-server`**: Backend Node.js and Express server built for real-time communication. Implements **Socket.io** to handle user registration and private messaging logic.
 - **`04-express-socket-client`**: Frontend application built with **React**, TypeScript, and Vite. Connects to the Node.js Socket.io server to demonstrate a real-time chat interface.
 - **`05-express-file-upload`**: Explores file handling and storage in Express.js. Implements file uploads using **Multer** and integrates with **AWS S3** (`@aws-sdk/client-s3` & `multer-s3`) for secure cloud storage, alongside local disk storage configurations.
+- **`06-express-graphql-server`**: Backend Node.js and Express server integrated with **Apollo Server** to provide a **GraphQL** API. Includes schema definitions (typeDefs), queries, mutations, and resolvers.
+- **`06-express-graphql-client`**: Frontend application built with **React**, TypeScript, and Vite. Connects to the backend using **Apollo Client** to perform GraphQL data fetching and mutations.
 
 ## 🛠️ How to Use
 
@@ -68,6 +70,24 @@ npm run dev
 **Terminal 2 (Frontend Client):**
 ```bash
 cd 04-express-socket-client
+npm install
+npm run dev
+```
+
+### 💬 Running the GraphQL App
+
+To test the GraphQL API and React client, start both the Apollo backend server and the client concurrently:
+
+**Terminal 1 (Backend Server):**
+```bash
+cd 06-express-graphql-server
+npm install
+npm run dev
+```
+
+**Terminal 2 (Frontend Client):**
+```bash
+cd 06-express-graphql-client
 npm install
 npm run dev
 ```
