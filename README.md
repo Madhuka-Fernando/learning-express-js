@@ -18,6 +18,7 @@ As my learning has progressed to different databases and language features, this
 - **`05-express-file-upload`**: Explores file handling and storage in Express.js. Implements file uploads using **Multer** and integrates with **AWS S3** (`@aws-sdk/client-s3` & `multer-s3`) for secure cloud storage, alongside local disk storage configurations.
 - **`06-express-graphql-server`**: Backend Node.js and Express server integrated with **Apollo Server** to provide a **GraphQL** API. Includes schema definitions (typeDefs), queries, mutations, and resolvers.
 - **`06-express-graphql-client`**: Frontend application built with **React**, TypeScript, and Vite. Connects to the backend using **Apollo Client** to perform GraphQL data fetching and mutations.
+- **`07-express-otplib`**: Explores Two-Factor Authentication (2FA) implementation in Express.js. Uses **otplib** to generate and verify Time-Based One-Time Passwords (TOTP) and **qrcode** to generate base64 QR codes for authenticator apps.
 
 ## 🛠️ How to Use
 
